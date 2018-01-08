@@ -1,0 +1,45 @@
+package dayFive;
+
+import org.openqa.selenium.Proxy;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.AfterSuite;
+
+public class WebDriverExample {
+	WebDriver driver;
+  @Test(description= "Test Browser Title")
+  public void webDriver1() {
+	  Assert.assertEquals(driver.getTitle(), "Google", "Title is not matched");
+  }
+  
+  
+  @BeforeMethod
+  public void beforeMethod() {
+	  driver.get("http://www.google.com");
+	  
+  }
+
+  @BeforeClass
+  public void beforeClass() {
+	  // To Change Proxy Value
+	  String proxyValue = "proxy.cognizant.com:6050";
+	  Proxy proxy = new Proxy();
+	  proxy.setHttpProxy(proxyValue).setFtpProxy(proxyValue).setSslProxy(proxyValue);
+	  DesiredCapabilities dc = new DesiredCapabilities();
+	  dc.setCapability(CapabilityType.PROXY, proxy);
+	  
+	  // Launch Firefox Browser with DesiredCapabilities
+	  driver = new FirefoxDriver(dc);
+  }
+
+
+
+}
